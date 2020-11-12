@@ -10,7 +10,7 @@
     <!-- <p>input要素がうまく改行できずrange要素が状態選択のすぐ横に来てしまう</p> -->
     <form action="cgi/saveBooks.rb" method="post">
         <p>
-            タイトル:<input type="text" name="name" size="40">
+            タイトル:<input type="text" name="book_name" size="40">
         </p>
 
         <p>
@@ -23,21 +23,18 @@
         </p>
 
         <p>
-            <h2>評価</h2>:<button>追加</button>
-            
+            <h2>評価</h2>
+            評価名:<input type="text" name="book_review_name" size="40"><br>
+            <input type="range" min="0" max="5" name="book_review">
             <!-- どうやったら改行できる? -->
         </p>
 
         <p>
             感想:<br>
-            <textarea name="kanso" rows="4" cols="40"></textarea>
+            <textarea name="book_impression" rows="4" cols="40"></textarea>
         </p>
-        
-        <p>
-            開始日時:<input type="date" name="date_start"><br>
-            終了日時:<input type="date" name="date_end"><br>
-        </p>
-        <button type="submit" action="">完了</button>
+
+        <input type="submit" value="登録">
         
     </form>
 </body>
