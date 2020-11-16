@@ -35,7 +35,9 @@ product_results.each do |product_results|
 end
 
 print <<-EOS
-Test
+<br>
+<p>リロードはしないでください!</p>
+<a href="../home_menu.html"><button>メニューに戻る</button></a>
 </p>
 </body>
 </html>
