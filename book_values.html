@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>BookValues</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script text="text/javascript" src="js/bookProgress.js"></script>
+    <!-- コーディング規則はnameがsnake classがケバブケース id・カスタムデータ・変数・関数名は基本ローワーキャメルとする-->
+</head>
+<body onload="getBookProgressDataFromDB0('./cgi/get_book_values.rb', 'bookProgress');">
+    <p>積読解消数:<div id="bookProgress"></div></p>
+</body>
+</html>
