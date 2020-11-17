@@ -13,9 +13,9 @@ reviewPoint = data['book_review']
 impressions = data['book_impression']
 
 #パスはサーバーで入れてね
-# client = 
+#client = 
 
-product_results = client.query("select * from test_book;")
+productResults = client.query("select * from test_book;")
 
 print <<-EOS
 Content-type: text/html\n\n
@@ -30,14 +30,14 @@ EOS
 
 client.query("insert into test_book values('#{name}', #{status}, '#{reviewName}', #{reviewPoint}, '#{impressions}');")
 
-product_results.each do |product_results|
-   puts product_results
+productResults.each do |productResults|
+   puts productResults
 end
 
 print <<-EOS
 <br>
 <p>リロードはしないでください!</p>
-<a href="../home_menu.html"><button>メニューに戻る</button></a>
+<a href="../HomeMenu.html"><button>メニューに戻る</button></a>
 </p>
 </body>
 </html>
