@@ -3,6 +3,7 @@
 
 require 'mysql2'
 require 'cgi'
+require 'date'
 
 data=CGI.new()
 
@@ -11,6 +12,8 @@ status = data['book_status']
 reviewName = data['book_review_name']
 reviewPoint = data['book_review']
 impressions = data['book_impression']
+
+today = Date.today
 
 #パスはサーバーで入れてね
 #client = 
@@ -28,7 +31,7 @@ Content-type: text/html\n\n
 <p>
 EOS
 
-client.query("insert into test_book values('#{name}', #{status}, '#{reviewName}', #{reviewPoint}, '#{impressions}');")
+client.query("insert into test_book values('#{name}', #{status}, '#{reviewName}', #{reviewPoint}, '#{impressions}','#{today}');")
 
 productResults.each do |productResults|
    puts productResults
