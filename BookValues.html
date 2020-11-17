@@ -7,7 +7,9 @@
     <script text="text/javascript" src="js/bookProgress.js"></script>
     <!-- コーディング規則はnameがsnake classがケバブケース id・カスタムデータ・変数・関数名は基本ローワーキャメルとする-->
 </head>
-<body onload="getBookProgressDataFromDB0('./cgi/get_book_values.rb', 'bookProgress');">
-    <p>積読解消数:<div id="bookProgress"></div></p>
+<body onload="getBookProgressDataFromDB0('./cgi/get_book_values.rb', 'bookProgress'); getBookProgressDataFromDB0('./cgi/get_pages.rb', 'bookPages'); getBookProgressDataFromDB0('./cgi/get_pages.rb', 'bookPagesAvg');">
+    <p>積読解消数:<span id="bookProgress"></span></p>
+    <p>読んだ合計ページ数:<span id="bookPages"></span></p>
+    <p>読んだ平均ページ数:<span id="bookPagesAvg"></span></p>
 </body>
 </html>
