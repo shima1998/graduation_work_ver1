@@ -5,10 +5,10 @@
     <title>Booksave</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
 </head>
-<body>
+<body onload="showDB('showDB');">
     <h2>書籍登録</h2>
     <!-- <p>input要素がうまく改行できずrange要素が状態選択のすぐ横に来てしまう</p> -->
-    <form action="cgi/save_books.rb" method="post">
+    <form action="cgi/save_books.rb" id="bookData" method="post">
         <p>
             タイトル:<input type="text" name="book_name" size="40">
         </p>
@@ -34,8 +34,16 @@
             <textarea name="book_impression" rows="4" cols="40"></textarea>
         </p>
 
-        <input type="submit" value="登録">
-        
+        <button id="sendData">送信</button>
+        <!-- <input type="submit" value="登録"> -->
+
+        <p>テスト用データベース欄_初期</p>
+        <div id="showDB"></div>
+
+        <p>テスト用データベース欄_動的変更</p>
+        <div id="responseDB"></div>
     </form>
+
+    <script src="js/bookSave.js"></script>
 </body>
 </html>
