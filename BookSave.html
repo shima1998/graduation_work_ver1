@@ -5,7 +5,7 @@
     <title>Booksave</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
 </head>
-<body onload="showDB('showDB');">
+<body onload="showDB('showDB','./cgi/show_books.rb');">
     <h2>書籍登録</h2>
     <!-- <p>input要素がうまく改行できずrange要素が状態選択のすぐ横に来てしまう</p> -->
     <form action="cgi/save_books.rb" id="bookData" method="post">

@@ -36,9 +36,17 @@ window.addEventListener("load", function(){
 // 以下を参考にさせていただきました
 // https://analogstd.com/pc/javascript/method-post-with-xhr/
 
-function showDB(id){
-	let XHR = XMLHttpRequest();
-	XHR.open("get", "./cgi/show_books.rb");
-	XHR.send();
-	document.getElementById(id).innerHTML = XHR.responseText;
+function showDB(id, path){
+	let XHR = new XMLHttpRequest();
+	XHR.open("GET", path, true);
+
+	XHR.onreadystatechange = function(){
+		if(XHR.readyState == 4){
+			// GETした結果を表示する?
+			document.getElementById(id).innerHTML = XHR.responseText;
+		}
+	};
+
+	XHR.send(null);
+	// document.getElementById(id).innerHTML = XHR.responseText;
 }
