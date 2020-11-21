@@ -27,6 +27,9 @@ window.addEventListener("load", function(){
 				document.getElementById("responseDB").innerHTML = XHR.responseText;
 			}
 		};
+
+		// document.getElementById("showDB").innerHTML = XHR.open("get", "./cgi/show_books.rb");
+
 	} ,false);
 }, false);
 
@@ -35,5 +38,7 @@ window.addEventListener("load", function(){
 
 function showDB(id){
 	let XHR = XMLHttpRequest();
-	document.getElementById(id).innerHTML = XHR.open("get", "./cgi/show_books.rb");
+	XHR.open("get", "./cgi/show_books.rb");
+	XHR.send();
+	document.getElementById(id).innerHTML = XHR.responseText;
 }
