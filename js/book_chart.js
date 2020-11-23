@@ -91,10 +91,6 @@ function addData0(chart, label, num){//イメージ chart.data.datasets[data][n]
     console.log(chart.data.datasets[0]);//中身出てきた　最初と同じ
     //{label: "得票数", data: Array(7), backgroundColor: Array(6), borderColor: Array(6), borderWidth: 1, …}
     
-    console.log(chart.data.datasets[0].data);//中身出てきた　
-    //[12, 19, 3, 5, 2, 3, 5, _chartjs: {…}, push: ƒ, pop: ƒ, shift: ƒ, splice: ƒ, …]
-
-    console.log(chart.data.datasets[0].data[2]);//中身出てきた
 
     Object.keys(chart.data.labels).forEach(key => {
         console.log(`key: ${key}`)
@@ -104,11 +100,21 @@ function addData0(chart, label, num){//イメージ chart.data.datasets[data][n]
         console.log(`key: ${key}　value: ${chart.data.labels[key]}`)
     })// key: 0(から最後まで) value: 赤(から最後まで)
 
-    chart.data.datasets.data.forEach((dataset) => {
+    console.log(chart.data.datasets[0].data);//中身出てきた　
+    //[12, 19, 3, 5, 2, 3, 5, _chartjs: {…}, push: ƒ, pop: ƒ, shift: ƒ, splice: ƒ, …]
+
+    console.log(chart.data.datasets[0].data[2]);//中身出てきた 3
+
+    chart.data.datasets[0].data.forEach((dataset) => {
         console.log(dataset);
-    });//これもだめ
+    });//これはいった
+    //datasets[0]じゃないと、datasetsのどこを参照すりゃいいんだよこの野郎!ってなるらす
 
     console.log(chart.data.datasets.data[0]);//これはだめ
+
+    
+
+    // console.log(chart.data.datasets.data[0]);//これはだめ
 
     // console.log(chart.data.datasets.data);
 
