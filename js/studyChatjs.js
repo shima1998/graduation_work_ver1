@@ -39,6 +39,7 @@ let myChart = new Chart(ctx, {
 
 
 function addData0(chart, label, num){//イメージ chart.data.datasets[data][n] = num;
+    //テスト用関数
     chart.data.labels.push(label);
     // chart.data.datasets.data.push(num);
     chart.data.datasets.forEach((dataset) => {
