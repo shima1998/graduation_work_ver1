@@ -54,7 +54,9 @@ function addData0(chart, label, num){//イメージ chart.data.datasets[data][n]
     chart.data.datasets.forEach((dataset) => {
         console.log(dataset);
     });//chart.data.datasetsは配列である。~.dataをforeachでconsole.logを取ろうとするとエラーを吐く
+    //なぜならdatasetsは[0]というキー一つだけ持っている配列だから、datasets.dataという書式だと「どのキーの配列を参照すればいいかわからない」となりエラーになる
     // {label: "得票数", data: Array(7), backgroundColor: Array(6), borderColor: Array(6), borderWidth: 1, …}
+    //いやこれJSONだわ
 
     chart.data.datasets.forEach((dataset) => {
         console.log(dataset.data);
@@ -109,7 +111,7 @@ function addData0(chart, label, num){//イメージ chart.data.datasets[data][n]
     chart.data.datasets[0].data.forEach((dataset) => {
         console.log(dataset);
     });//これはいった
-    //datasets[0]じゃないと、datasetsのどこを参照すりゃいいんだよこの野郎!ってなるらす
+    //datasets[0]じゃないと、datasetsのどこを参照すりゃいいんだよこの野郎!ってなるらしい
 
     console.log(chart.data.datasets.data[0]);//これはだめ
 

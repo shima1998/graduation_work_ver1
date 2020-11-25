@@ -27,8 +27,6 @@ let bookChart0 = new Chart(ctx, {
 
 window.addEventListener("load",function(){
     let XHR = new XMLHttpRequest();
-    // let progressData = new Object();
-    // let strXml0;
 
     XHR.open("GET", "./cgi/get_progress.rb", true);//タダの設定　
 
@@ -40,10 +38,18 @@ window.addEventListener("load",function(){
             let progressData = JSON.parse(strXml0);//date,pages String型で格納されている
             
             console.log(progressData);
+            console.log(Number(progressData[0].pages));
 
             document.getElementById("test1").innerHTML = progressData[0].date;
 
             document.getElementById("test0").innerHTML = progressData[0].pages;
+
+            //bookChart0に値をプッシュするforEach
+            progressData.forEach(element => {
+                bookChart0.data.labels.push(element.date);
+                bookChart0.data.datasets[0].data.push(Number(element.pages));
+                bookChart0.update();
+            });
             
             // strXml0.split(",");
 		};
