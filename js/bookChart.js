@@ -1,3 +1,4 @@
+// 配列に関して、基本はドット記法を使用するが、keyが数字、または変数だった場合はブラケットを使用すること。
 let ctx = document.getElementById("bookChart0").getContext('2d');
 
 let bookChart0 = new Chart(ctx, {
@@ -25,6 +26,38 @@ let bookChart0 = new Chart(ctx, {
     }
 });
 
+function insertArrayForChart(chart, arrayValues, keyLabels, keyValues, bgColor, bdColor){
+    //for "Chart.js"
+
+    chart.data.labels.forEach((cLabel, cIndex)=>{
+        let cLabelsName;
+        arrayValues.forEach((aValue, aIndex)=> {
+            if(cLabel != aValue[keyLabels]){
+                chart.data.labels.push(aValue[keyLabels]);
+                chart.data.datasets[0].data.push(Number(aValue[keyValues]));
+                chart.data.datasets[0].backgroundColor.push(bgColor);
+                chart.data.datasets[0].backgroundColor.push(bdColor);
+                chart.update();
+                cLNames = cLabel;//ラベル名格納
+            } else {//さらに探知がいる いちいちラベルの名前を取得すべし
+                cLNames.forEach((cLName, cLIndex)=>{
+                    if(cLName == cLabel){
+                        chart.data.datasets[0].data[cLIndex]+=Number(aValue[keyValues]);
+                    };
+                });                
+            };
+        });        
+    });
+
+    arrayValues.forEach(element => {
+        chart.data.labels.push(element[keyLabels]);
+        chart.data.datasets[0].data.push(Number(element[keyValues]));
+        chart.data.datasets[0].backgroundColor.push(bgColor);
+        chart.data.datasets[0].backgroundColor.push(bdColor);
+        chart.update();
+    });
+}
+
 window.addEventListener("load",function(){
     let XHR = new XMLHttpRequest();
 
@@ -45,13 +78,18 @@ window.addEventListener("load",function(){
             document.getElementById("test0").innerHTML = progressData[0].pages;
 
             //bookChart0に値をプッシュするforEach
-            progressData.forEach(element => {
-                bookChart0.data.labels.push(element.date);
-                bookChart0.data.datasets[0].data.push(Number(element.pages));
-                bookChart0.update();
-            });
-            
-            // strXml0.split(",");
+            // progressData.forEach(element => {
+            //     bookChart0.data.labels.push(element.date);
+            //     bookChart0.data.datasets[0].data.push(Number(element.pages));
+            //     bookChart0.update();
+            // });
+
+            insertArrayForChart(bookChart0, progressData, 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
+
+            //ほしい機能
+            //labelの重複を消す
+            //最後の空のデータをなんとかする
+            // 色付ける
 		};
     };//最初は素通り　帰ってくるタイミングはこちらで決められない
 
