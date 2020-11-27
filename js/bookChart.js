@@ -31,9 +31,8 @@ let bookChart0 = new Chart(ctx, {
 function insertArrayForChart(chart, arrayValues, keyLabels, keyValues, bgColor, bdColor){
     //for "Chart.js"
     //DBから送られてくるJSON要素の最後は"{}"という未定義の要素の想定である。
-
-    //おそらく、最初にlabelを取得→重複削除　そしてlabelに応じた数値を１つ１つ足して入れていく　で行けるはず
-    //→行けた
+    //グラフの色は、現状最初に引数で設定した1色で固定になります。
+    //頻繁に間に挟まっているコメントアウトされたconsole.logは、挙動確認用に残してあります。
 
     let accumulateLabels = [];//最初にすべてのラベル名を格納するための配列
 
@@ -53,12 +52,14 @@ function insertArrayForChart(chart, arrayValues, keyLabels, keyValues, bgColor, 
             ) === index
     );
 
-    refreshLabels.pop();//#3 最後にあるであろう未定義の要素を削除
+    refreshLabels.pop();//#3 最後にあるであろう未定義の要素"{}"を削除
 
     // console.log(refreshLabels);
 
-    refreshLabels.forEach(element => {//#4 ラベルを追加
+    refreshLabels.forEach(element => {//#4 ラベルを追加、またラベルの数だけ色も設定する。現状同じ色しか指定できません。
         chart.data.labels.push(element);
+        chart.data.datasets[0].backgroundColor.push(bgColor);
+        chart.data.datasets[0].borderColor.push(bdColor);
     });
 
     // console.log(chart.data.labels);
@@ -66,7 +67,6 @@ function insertArrayForChart(chart, arrayValues, keyLabels, keyValues, bgColor, 
     chart.data.datasets[0].data = new Array(chart.data.labels.length).fill(0);//#5 グラフのデータ格納先の確保。 ラベルの数の分要素を作り、全要素を0にする。
 
     // console.log(chart.data.datasets[0].data.length);
-
     // console.log(chart.data.datasets[0].data);
 
     arrayValues.forEach(element => {//#6 グラフにする値のラベルと先ほど格納したラベルを比較し、一致したラベルに対応する位置に値を追加していく。
@@ -80,24 +80,8 @@ function insertArrayForChart(chart, arrayValues, keyLabels, keyValues, bgColor, 
 
     // console.log(chart.data.datasets[0].data);
 
-    // chart.data.labels.forEachforEach(element => {
-    //     chart.data.labels.push(element[keyLabels]);
-    //     chart.update();
-    // });
 
-    // chart.data.labels.forEachforEach(element => {
-    //     chart.data.labels.push(element[keyLabels]);
-    //     chart.update();
-    // });
-
-    // arrayValues.forEach(element => {
-    //     chart.data.datasets[0].data.push(Number(element[keyValues]));
-    //     chart.data.datasets[0].backgroundColor.push(bgColor);
-    //     chart.data.datasets[0].borderColor.push(bdColor);
-    //     chart.update();
-    // });
-
-    //基本形
+    //要素追加の基本形　ここから色々な追加方法に発展させられるはず
     // arrayValues.forEach(element => {
     //     chart.data.labels.push(element[keyLabels]);
     //     chart.data.datasets[0].data.push(Number(element[keyValues]));
@@ -106,59 +90,6 @@ function insertArrayForChart(chart, arrayValues, keyLabels, keyValues, bgColor, 
     //     chart.update();
     // });
 
-
-    // arrayValues.forEach(element => {
-    //     chart.data.labels.forEach((label){
-    //         if(element[keyLabels] != label){
-    //             label.push(element[keyLabels]);
-    //             console.log(label)
-    //         };
-    //     });
-        
-    //     chart.data.datasets[0].data.push(Number(element[keyValues]));
-    //     chart.data.datasets[0].backgroundColor.push(bgColor);
-    //     chart.data.datasets[0].borderColor.push(bdColor);
-    //     chart.update();
-    // });
-
-
-    // chart.data.labels.forEach((cLabel)=>{
-    //     cLNames = cLabel;
-    // });
-
-    // console.log(cLNames);
-
-    // まだ動かん
-    // chart.data.labels.forEach((cLabel)=>{//ここではまだchartにlabelsが入ってないのでcLnamesには数が入らない
-    //     let cLNames;//Labelの名前を重複しないよう格納
-    //     arrayValues.forEach((aValue)=> {
-    //         if(cLabel != aValue[keyLabels]){
-    //             cLabel.push(aValue[keyLabels]);
-    //             chart.data.datasets[0].data.push(Number(aValue[keyValues]));
-    //             chart.data.datasets[0].backgroundColor.push(bgColor);
-    //             chart.data.datasets[0].backgroundColor.push(bdColor);
-    //             chart.update();
-    //             cLNames = cLabel;//ラベル名格納
-    //             console.log(cLNames);
-    //         } else {//さらに探知がいる いちいちラベルの名前を取得すべし
-    //             cLNames.forEach((cLName, cLIndex)=>{
-    //                 if(cLName == cLabel){
-    //                     chart.data.datasets[0].data[cLIndex]+=Number(aValue[keyValues]);
-    //                 };
-    //             });                
-    //         };
-    //     });        
-    // });
-
-    // これは動く
-//     arrayValues.forEach(element => {
-//         chart.data.labels.push(element[keyLabels]);
-//         chart.data.datasets[0].data.push(Number(element[keyValues]));
-//         chart.data.datasets[0].backgroundColor.push(bgColor);
-//         chart.data.datasets[0].borderColor.push(bdColor);
-//         chart.update();
-//     });
-//     console.log(chart.data.labels[0]);
 }
 
 window.addEventListener("load",function(){
@@ -170,30 +101,14 @@ window.addEventListener("load",function(){
 		if(XHR.readyState == 4){
             // GETした結果を表示する?
             let strXml0 = XHR.responseText;
-            // console.log(strXml0);
             let progressData = JSON.parse(strXml0);//date,pages String型で格納されている
-            
-            // console.log(progressData);
-            // console.log(Number(progressData[0].pages));
 
             document.getElementById("test1").innerHTML = progressData[0].date;
 
             document.getElementById("test0").innerHTML = progressData[0].pages;
 
-            //bookChart0に値をプッシュするforEach
-            // progressData.forEach(element => {
-            //     bookChart0.data.labels.push(element.date);
-            //     bookChart0.data.datasets[0].data.push(Number(element.pages));
-            //     bookChart0.update();
-            // });
-
-            // insertArrayForChart(chart, arrayValues, keyLabels, keyValues, bgColor, bdColor)
             insertArrayForChart(bookChart0, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
 
-            //ほしい機能
-            //labelの重複を消す
-            //最後の空のデータをなんとかする
-            // 色付ける
 		};
     };//最初は素通り　帰ってくるタイミングはこちらで決められない
 
