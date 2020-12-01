@@ -24,10 +24,12 @@ function createNewElement(){
     let parentBookMenu = document.createElement("p"); //ノード作成
     parentBookMenu.textContent = "XXXXXXXXXXXXXXXXX";
 
-    let parentNode = document.getElementById("bookMenu1").parentNode;//("node")の親ノードを持ってくる関数
+    let parentNode = document.getElementById("bookMenu1").parentNode;//("node")の親ノードを持ってくる関数、参照ノード
     let referenceID = document.getElementById("bookMenu1");//
     // let newDiv = document.createElement('div'); /*div要素を生成*/
     // let childBookMenu = document.getElementById('bookMenu1');
+    console.log(parentNode);//bodyが返ってくる
+    console.log(parentNode.textContent);//直打ちした文字が返ってくる
     parentNode.insertBefore(parentBookMenu, referenceID);
 };
 
