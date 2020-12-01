@@ -23,14 +23,18 @@ window.addEventListener("load",function(){
 function createNewElement(){
     let parentBookMenu = document.createElement("p"); //ノード作成
     parentBookMenu.textContent = "XXXXXXXXXXXXXXXXX";
+    // parentBookMenu.textContent = "XX";
 
     let parentNode = document.getElementById("bookMenu1").parentNode;//("node")の親ノードを持ってくる関数、参照ノード
-    let referenceID = document.getElementById("bookMenu1");//
+    let referenceID = document.getElementById("bookMenu2");//
     // let newDiv = document.createElement('div'); /*div要素を生成*/
     // let childBookMenu = document.getElementById('bookMenu1');
     console.log(parentNode);//bodyが返ってくる
     console.log(parentNode.textContent);//直打ちした文字が返ってくる
-    parentNode.insertBefore(parentBookMenu, referenceID);
+    // parentNode.insertBefore(parentBookMenu, referenceID);
+    // document.getElementById("bookMenu1").appendChild(parentBookMenu);//これで既存のノードの直下に要素追加は可能
+    let elm = "<div id=\"bookMenu2\" class=\"menu-box0\">ウルトラマン</div>";//追加したいHTML要素
+    referenceID.insertAdjacentHTML('afterbegin', elm);//この挙動でうまくいく(UIはズレるが)　こっちを回した方がうまくいくのではないか?
 };
 
 // let parentBookMenu = document.createElement("p"); /*id名aのdivを取得*/
