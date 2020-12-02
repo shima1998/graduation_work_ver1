@@ -1,42 +1,43 @@
 //foreachじゃなくてforで回す方がいいと思う
 //おそらく今回の関数は流用はできない
 
-window.addEventListener("load",function(){
-    let XHR = new XMLHttpRequest();
+// window.addEventListener("load",function(){
+//     let XHR = new XMLHttpRequest();
 
-    XHR.open("GET", "./cgi/get_progress.rb", true);//タダの設定　
+//     XHR.open("GET", "./cgi/get_progress.rb", true);//タダの設定　
 
-    XHR.onreadystatechange = function(){//データが帰ってきたらどうするか
-		if(XHR.readyState == 4){
-            // GETした結果を表示する?
-            let parentBookMenu1 = document.getElementById('bookMenu1').parentNode; /*id名aのdivを取得*/
-            let newDiv = document.createElement('div'); /*div要素を生成*/
+//     XHR.onreadystatechange = function(){//データが帰ってきたらどうするか
+// 		if(XHR.readyState == 4){
+//             // GETした結果を表示する?
+//             let parentBookMenu1 = document.getElementById('bookMenu1').parentNode; /*id名aのdivを取得*/
+//             let newDiv = document.createElement('div'); /*div要素を生成*/
             
 
-		};
-    };//最初は素通り　帰ってくるタイミングはこちらで決められない
+// 		};
+//     };//最初は素通り　帰ってくるタイミングはこちらで決められない
 
-    XHR.send(null);
+//     XHR.send(null);
 
-}, false); 
+// }, false); 
 
-function createDiv(newId, indexId, newClass){
-  let newDiv = document.createElement("div");
-  // let parent = document.getElementById(referenceId).parentNode;
+function createNewTag(newTagName, newId, indexId, newClass){
+  let newTag = document.createElement(newTagName);
 
-  if(indexId != null){
-    newDiv.setAttribute("id", newId);
-  } each {
-    newDiv.setAttribute("id", newId + string(indexId));
+  if(indexId == null){//nullは文字列である必要がありそう
+    newTag.setAttribute("id", newId);
+  } else {
+    newTag.setAttribute("id", newId + indexId);
   };
 
-  newDiv.setAttribute("class", newClass);
+  newTag.setAttribute("class", newClass);
 
-  return newDiv;
+  // console.log(newId + indexId);
+
+  return newTag;
 };
 
 
-function createNewElementTest(){
+function createNewElementTest0(){
     let parentBookMenu = document.createElement("p"); //ノード作成
     parentBookMenu.textContent = "XXXXXXXXXXXXXXXXX";
     // parentBookMenu.textContent = "XX";
@@ -53,6 +54,26 @@ function createNewElementTest(){
     referenceID.insertAdjacentHTML('afterbegin', elm);//この挙動でうまくいく(UIはズレるが)　こっちを回した方がうまくいくのではないか?
 };
 
+function createNewElementTest1(){//これで動きます。
+  let element0 = createNewTag("div", "test", 3, "menu-box0");
+  let element1 = createNewTag("p", "testP", null, "testP");
+  let text0 = document.createTextNode("It's showtime.")
+
+  console.log(element0);
+
+  element1.appendChild(text0);
+  element0.appendChild(element1);
+
+  console.log(element0);
+  console.log(element1);
+
+
+  
+  // let parentNode = document.getElementById("bookMenu1").parentNode;
+  document.getElementById("button0").appendChild(element0);
+};
+
+
 // let parentBookMenu = document.createElement("p"); /*id名aのdivを取得*/
 //     parentBookMenu.textContent = "ラーメン";
 
@@ -63,3 +84,4 @@ function createNewElementTest(){
 
 // こちら参考にさせていただきました。
 //　https://www.yutaliberty.com/2019/04/11/prog/1541/
+//  http://4geek.net/how-to-manipulate-html-dom-with-javascript/
