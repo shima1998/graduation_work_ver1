@@ -20,7 +20,23 @@ window.addEventListener("load",function(){
 
 }, false); 
 
-function createNewElement(){
+function createDiv(newId, indexId, newClass){
+  let newDiv = document.createElement("div");
+  // let parent = document.getElementById(referenceId).parentNode;
+
+  if(indexId != null){
+    newDiv.setAttribute("id", newId);
+  } each {
+    newDiv.setAttribute("id", newId + string(indexId));
+  };
+
+  newDiv.setAttribute("class", newClass);
+
+  return newDiv;
+};
+
+
+function createNewElementTest(){
     let parentBookMenu = document.createElement("p"); //ノード作成
     parentBookMenu.textContent = "XXXXXXXXXXXXXXXXX";
     // parentBookMenu.textContent = "XX";
