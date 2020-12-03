@@ -20,15 +20,14 @@ EOS
 print "[\n"
 productResults.each do |productResult|
     print "{\n"
-    print "\"name\": " + "\"" + productResults["Name"] + "\",\n"
-    print "\"status\": " + "\"" + productResults["Status"].to_s + "\"\n"
- #  "\"name\": " はシングルクオートでくくって '"name": 'と書いてもよい
+    print "\"name\": " + "\"" + productResult["Name"] + "\",\n"
+    print "\"status\": " + "\"" + productResult["Status"].to_s + "\",\n"
+    print "\"reviewName\": " + "\"" + productResult["ReviewName"] + "\",\n"
+    print "\"reviewPoint\": " + "\"" + productResult["ReviewPoint"].to_s + "\",\n"
+    print "\"impressions\": " + "\"" + productResult["Inpresson"].to_s + "\",\n"
+    print "\"date\": " + "\"" + productResult["Date"].to_s + "\",\n"
+    #  "\"name\": " はシングルクオートでくくって '"name": 'と書いてもよい
  #  ruby の文字列に関する記述をしらべてみること
- 
- #   print productResults["ReviewName"] + "\n"
- #   print productResults["ReviewPoint"].to_s + "\n"
- #   print productResults["Inpresson"].to_s + "\n"
- #   print productResults["Date"].to_s + "\n"
 end
 # できればヒアドキュメント使いたかったけどヒアドキュメントの中だと演算子使いにくいっぽいからナシで
 print "{}]\n"

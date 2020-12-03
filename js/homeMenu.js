@@ -1,35 +1,66 @@
 //foreachじゃなくてforで回す方がいいと思う
 //おそらく今回の関数は流用はできない
 
-// window.addEventListener("load",function(){
-//     let XHR = new XMLHttpRequest();
+window.addEventListener("load",function(){
+    let XHR = new XMLHttpRequest();
 
-//     XHR.open("GET", "./cgi/get_progress.rb", true);//タダの設定　
+    XHR.open("GET", "./cgi/book_list.rb", true);//タダの設定　
 
-//     XHR.onreadystatechange = function(){//データが帰ってきたらどうするか
-// 		if(XHR.readyState == 4){
-//             // GETした結果を表示する?
-//             let parentBookMenu1 = document.getElementById('bookMenu1').parentNode; /*id名aのdivを取得*/
-//             let newDiv = document.createElement('div'); /*div要素を生成*/
-            
+    XHR.onreadystatechange = function(){//データが帰ってきたらどうするか
+      if(XHR.readyState == 4){
+        // GETした結果を表示する
+        let bookLists = JSON.parse(XHR.responseText);
+        
+        bookLists.forEach((bookList, index) => {
+          let newDivs = createNewTag("div", "bookStatus", index, "book-menu0", null);
 
-// 		};
-//     };//最初は素通り　帰ってくるタイミングはこちらで決められない
+          newDivs.forEach((newDiv) => {
+            let newP0 = createNewTag("p", null, null, null, null);
+            newP0.textContent = bookList.name;
+            newDiv.appendChild(newP0);
+            let newP1 = createNewTag("p", null, null, null, null);
+            let bookStatus;
 
-//     XHR.send(null);
+            switch(bookList.status){
+              case 0:
+                break;
+              case 1:
+                break;
+              case 2:
+                break;
+              case :
+                break;
+                
+            }
 
-// }, false); 
+            newP1.textContent = "状態:" + bookStatus + "□" + bookList.reviewName + ":" + bookList.reviewPoint
+          });
+        });
+		};
+    };//最初は素通り　帰ってくるタイミングはこちらで決められない
 
-function createNewTag(newTagName, newId, indexId, newClass){
+    XHR.send(null);
+
+}, false); 
+
+function createNewTag(newTagName, newId, indexId, newClass, indexClass){
   let newTag = document.createElement(newTagName);
 
-  if(indexId == null){//nullは文字列である必要がありそう
-    newTag.setAttribute("id", newId);
-  } else {
-    newTag.setAttribute("id", newId + indexId);
+  if(newId != null){
+    if(indexId == null){//nullは文字列である必要がありそう
+      newTag.setAttribute("id", newId);
+    } else {
+      newTag.setAttribute("id", newId + indexId);
+    };
   };
-
-  newTag.setAttribute("class", newClass);
+  
+  if(newClass != null){
+    if(indexClass == null){//nullは文字列である必要がありそう
+      newTag.setAttribute("class", newClass);
+    } else {
+      newTag.setAttribute("class", newClass + indexClass);
+    };
+  };
 
   // console.log(newId + indexId);
 
@@ -55,8 +86,8 @@ function createNewElementTest0(){
 };
 
 function createNewElementTest1(){//これで動きます。
-  let element0 = createNewTag("div", "test", 3, "menu-box0");
-  let element1 = createNewTag("p", "testP", null, "testP");
+  let element0 = createNewTag("div", "test", 3, "menu-box0", null);
+  let element1 = createNewTag("p", "testP", null, "testP", null);
   let text0 = document.createTextNode("It's showtime.")
 
   console.log(element0);
@@ -66,9 +97,7 @@ function createNewElementTest1(){//これで動きます。
 
   console.log(element0);
   console.log(element1);
-
-
-  
+ 
   // let parentNode = document.getElementById("bookMenu1").parentNode;
   document.getElementById("button0").appendChild(element0);
 };
