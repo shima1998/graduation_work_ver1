@@ -1,5 +1,6 @@
 //foreachじゃなくてforで回す方がいいと思う
 //おそらく今回の関数は流用はできない
+//JSON.parseに渡すデータに\rや\nが入っているとエラーが起きる
 
 window.addEventListener("load",function(){
     let XHR = new XMLHttpRequest();
@@ -9,38 +10,47 @@ window.addEventListener("load",function(){
     XHR.onreadystatechange = function(){//データが帰ってきたらどうするか
       if(XHR.readyState == 4){
         // GETした結果を表示する
-        let bookLists = JSON.parse(XHR.responseText);
-        
+        // console.log(XHR.responseText);
+        // console.log(JSON.stringify(XHR.responseText));
+        let bookLists = JSON.parse(XHR.responseText);//JSON.parseに渡すデータに\rや\nが入っているとエラーが起きる
+        console.log(bookLists);
+        console.log(bookLists[3].status);
+
+
         bookLists.forEach((bookList, index) => {
           let newDivs = createNewTag("div", "bookStatus", index, "book-menu0", null);
 
-          newDivs.forEach((newDiv) => {
-            let newP0 = createNewTag("p", null, null, null, null);
-            newP0.textContent = bookList.name;
-            newDiv.appendChild(newP0);
-            let newP1 = createNewTag("p", null, null, null, null);
-            let bookStatus;
+          let newP0 = createNewTag("p", null, null, null, null);
+          newP0.textContent = bookList.name;//本のタイトル
+          newDivs.appendChild(newP0);
+          let newP1 = createNewTag("p", null, null, null, null);
+          let bookStatus;
 
-            switch(bookList.status){
-              case 0:
-                break;
-              case 1:
-                break;
-              case 2:
-                break;
-              case :
-                break;
-                
-            }
+          switch(bookList.status){
+            case "0":
+              bookStatus = "未着手";
+              break;
+            case "1":
+              bookStatus = "読書中";
+              break;
+            case "2":
+              bookStatus = "読了";
+              break;
+            case "3":
+              bookStatus = "部分読了";
+              break;
+          };
 
-            newP1.textContent = "状態:" + bookStatus + "□" + bookList.reviewName + ":" + bookList.reviewPoint
-          });
+            newP1.textContent = "状態:" + bookStatus + "□" + bookList.reviewName + ":" + bookList.reviewPoint;
+
+            newDivs.appendChild(newP0);
+            newDivs.appendChild(newP1);
+            
+            document.body.appendChild(newDivs);
         });
-		};
+      };
     };//最初は素通り　帰ってくるタイミングはこちらで決められない
-
     XHR.send(null);
-
 }, false); 
 
 function createNewTag(newTagName, newId, indexId, newClass, indexClass){

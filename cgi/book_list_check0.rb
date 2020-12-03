@@ -17,9 +17,6 @@ print <<-EOS
 Content-type: text/html\n\n
 EOS
 
-#!重要!　TEXT型で保存しているImpressionsはJSON.不具合が起きるためとりあえず使用を控えること!!!!!
-#データの中に改行がある、データ自体が大きいなど原因は様々考えられるが、確認したところ\rや\nといった文字がデータ内に含まれていることがJSONに良くない影響をもたらしているようだ。
-
 print "[\n"
 productResults.each do |productResult|
     print "{\n"
@@ -27,11 +24,11 @@ productResults.each do |productResult|
     print "\"status\": " + "\"" + productResult["Status"].to_s + "\",\n"
     print "\"reviewName\": " + "\"" + productResult["ReviewName"].to_s + "\",\n"
     print "\"reviewPoint\": " + "\"" + productResult["ReviewPoint"].to_s + "\",\n"
-    # print "\"impressions\": " + "\"" + productResult["Inpressions"].to_s + "\",\n"
+    print "\"impressions\": " + "\"" + productResult["Inpressions"].to_s + "\",\n"
     print "\"date\": " + "\"" + productResult["Date"].to_s + "\"\n"
     print "},\n"
     #  "\"name\": " はシングルクオートでくくって '"name": 'と書いてもよい
-    #  ruby の文字列に関する記述をしらべてみること
+    #ruby の文字列に関する記述をしらべてみること
 end
 # できればヒアドキュメント使いたかったけどヒアドキュメントの中だと演算子使いにくいっぽいからナシで
 print "{}]\n"
