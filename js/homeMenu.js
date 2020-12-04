@@ -16,7 +16,6 @@ window.addEventListener("load",function(){
         console.log(bookLists);
         console.log(bookLists[3].status);
 
-
         bookLists.forEach((bookList, index) => {
           let newDivs = createNewTag("div", "bookStatus", index, "book-menu0", null);
 
@@ -49,6 +48,7 @@ window.addEventListener("load",function(){
             document.body.appendChild(newDivs);
         });
       };
+      
     };//最初は素通り　帰ってくるタイミングはこちらで決められない
     XHR.send(null);
 }, false); 
