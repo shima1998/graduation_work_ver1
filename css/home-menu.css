@@ -1,0 +1,12 @@
+header{
+    position: fixed;/*これやると領域が文字やオブジェクトの分しか展開されない。あと設定しないとheaderの分bodyの要素上にあがって重なるから要設定。  */
+    background-color: aquamarine;
+    width: 100%;
+}
+
+div.menu-box0 {
+    width:200px; height:100px;
+    margin:5px; padding:10px; border:1px solid black;
+    background-color:lightgray;
+}
+    
