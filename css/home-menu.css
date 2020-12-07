@@ -1,0 +1,13 @@
+header div.global-menu {
+    display: flex;
+    }
+
+header div.global-menu li{/*headerのなかのglobal-menuのクラスが入ったdivの中にあるliに適用される*/
+    border: 1px solid black;
+    }
+
+div.menu-box0 {
+    width:200px; height:100px;
+    margin:5px; padding:10px; border:1px solid black;
+    background-color:lightgray;
+    }
