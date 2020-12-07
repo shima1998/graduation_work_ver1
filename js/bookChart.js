@@ -1,0 +1,117 @@
+// 配列に関して、基本はドット記法を使用するが、keyが数字、または変数だった場合はブラケットを使用すること。
+let ctx = document.getElementById("bookChart0").getContext('2d');
+
+let bookChart0 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'ページ数',
+            data: [],
+            backgroundColor: [
+            ],
+            borderColor: [
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+// function combineDuplicateArray
+
+function insertArrayForChart(chart, arrayValues, keyLabels, keyValues, bgColor, bdColor){
+    //for "Chart.js"
+    //DBから送られてくるJSON要素の最後は"{}"という未定義の要素の想定である。
+    //グラフの色は、現状最初に引数で設定した1色で固定になります。
+    //頻繁に間に挟まっているコメントアウトされたconsole.logは、挙動確認用に残してあります。
+
+    let accumulateLabels = [];//最初にすべてのラベル名を格納するための配列
+
+    // arrayValues.forEach(element => {
+    //     console.log(element);
+    // });
+    
+    arrayValues.forEach(element => {//#1 最初にlabelを取得
+        accumulateLabels.push(element[keyLabels]);
+    });
+
+    // console.log(accumulateLabels);
+
+    let refreshLabels = accumulateLabels.filter((element, index, thisElement) =>//#2 重複を削除
+        thisElement.findIndex(elm =>
+            elm === element 
+            ) === index
+    );
+
+    refreshLabels.pop();//#3 最後にあるであろう未定義の要素"{}"を削除
+
+    // console.log(refreshLabels);
+
+    refreshLabels.forEach(element => {//#4 ラベルを追加、またラベルの数だけ色も設定する。現状同じ色しか指定できません。
+        chart.data.labels.push(element);
+        chart.data.datasets[0].backgroundColor.push(bgColor);
+        chart.data.datasets[0].borderColor.push(bdColor);
+    });
+
+    // console.log(chart.data.labels);
+    
+    chart.data.datasets[0].data = new Array(chart.data.labels.length).fill(0);//#5 グラフのデータ格納先の確保。 ラベルの数の分要素を作り、全要素を0にする。
+
+    // console.log(chart.data.datasets[0].data.length);
+    // console.log(chart.data.datasets[0].data);
+
+    arrayValues.forEach(element => {//#6 グラフにする値のラベルと先ほど格納したラベルを比較し、一致したラベルに対応する位置に値を追加していく。
+        chart.data.labels.forEach((elm, idx) => {
+            if(element[keyLabels] === elm){//ラベルの比較
+                chart.data.datasets[0].data[idx] += Number(element[keyValues]);
+                chart.update();
+            };
+        });  
+    });
+
+    // console.log(chart.data.datasets[0].data);
+
+
+    //要素追加の基本形　ここから色々な追加方法に発展させられるはず
+    // arrayValues.forEach(element => {
+    //     chart.data.labels.push(element[keyLabels]);
+    //     chart.data.datasets[0].data.push(Number(element[keyValues]));
+    //     chart.data.datasets[0].backgroundColor.push(bgColor);
+    //     chart.data.datasets[0].borderColor.push(bdColor);
+    //     chart.update();
+    // });
+
+}
+
+window.addEventListener("load",function(){
+    let XHR = new XMLHttpRequest();
+
+    XHR.open("GET", "./cgi/get_progress.rb", true);//タダの設定　
+
+    XHR.onreadystatechange = function(){//データが帰ってきたらどうするか
+		if(XHR.readyState == 4){
+            // GETした結果を表示する?
+            let strXml0 = XHR.responseText;
+            let progressData = JSON.parse(strXml0);//date,pages String型で格納されている
+
+            document.getElementById("test1").innerHTML = progressData[0].date;
+
+            document.getElementById("test0").innerHTML = progressData[0].pages;
+
+            insertArrayForChart(bookChart0, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
+
+		};
+    };//最初は素通り　帰ってくるタイミングはこちらで決められない
+
+    XHR.send(null);
+
+}, false); 
