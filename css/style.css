@@ -1,0 +1,43 @@
+html {
+    font-size: 62.5%;/*1rem = 10px*　remはルートのフォント、つまりここを参照する　*/
+}
+
+body{
+    font-size: 1.6em;/*　16px. emは親要素のフォントサイズ基準に大きさを計算　*/
+}
+
+body div.default{
+    padding-top: 10rem;
+}
+
+header{
+    position: fixed;/*これやると領域が文字やオブジェクトの分しか展開されない。あと設定しないとheaderの分bodyの要素上にあがって重なるから要設定。  */
+    background-color: blueviolet;
+}
+
+header div.global-menu {
+    display: flex;
+    overflow: hidden;
+    }
+    
+
+header div.global-menu ul{
+    margin: 0rem 0rem 0rem -4.5rem;
+}
+
+header div.global-menu li{/*headerのなかのglobal-menuのクラスが入ったdivの中にあるliに適用される*/
+    background-color: aquamarine;
+    list-style: none;
+    text-align: center;
+    width: 14rem;
+    border: 0.1rem solid black;
+    margin: 0rem 0.5rem 0rem 0.5rem;
+    padding: 0.5rem;
+    float: left;
+    }
+
+div.menu-box0 {
+    width:20rem; height:10rem;
+    margin:0.5rem; padding:1rem; border:0.1rem solid black;
+    background-color:lightgray;
+    }
