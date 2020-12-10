@@ -8,6 +8,17 @@
     <!-- コーディング規則はnameがsnake classがケバブケース id・カスタムデータ・変数・関数名は基本ローワーキャメルとする-->
 </head>
 <body onload="getBookProgressDataFromDB0('./cgi/get_book_values.rb', 'bookProgress'); getBookProgressDataFromDB0('./cgi/get_pages.rb', 'bookPages'); getBookProgressDataFromDB0('./cgi/get_pages.rb', 'bookPagesAvg');">
+    
+    <header>
+        <div class="global-menu">
+            <ul>
+                <a href="./HomeMenu.html"><li>Home</li></a>
+                <a href="./BookChart.html"><li>Datas</li></a>
+                <a href="./BookChart.html"><li>Helps</li></a>
+            </ul>
+        </div>
+    </header>
+    
     <p>積読解消数:<span id="bookProgress"></span></p>
     <p>読んだ合計ページ数:<span id="bookPages"></span></p>
     <p>読んだ平均ページ数:<span id="bookPagesAvg"></span></p>

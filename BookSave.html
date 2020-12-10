@@ -6,6 +6,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
 </head>
 <body onload="showDB('showDB','./cgi/show_books.rb');">
+
+    <header>
+        <div class="global-menu">
+            <ul>
+                <a href="./HomeMenu.html"><li>Home</li></a>
+                <a href="./BookChart.html"><li>Datas</li></a>
+                <a href="./BookChart.html"><li>Helps</li></a>
+            </ul>
+        </div>
+    </header>
+
     <h2>書籍登録</h2>
     <!-- <p>input要素がうまく改行できずrange要素が状態選択のすぐ横に来てしまう</p> -->
     <form action="cgi/save_books.rb" id="bookData" method="post">
