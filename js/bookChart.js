@@ -26,6 +26,33 @@ let bookChart0 = new Chart(ctx, {
     }
 });
 
+
+let bookChart1 = new Chart(ctx, {//円グラフ
+    type: 'doughnut',
+    data: {
+        labels: ["a","b","c"],
+        datasets: [{
+            label: 'ページ数',
+            data: [10,10,10],
+            backgroundColor: [
+            ],
+            borderColor: [
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+
 // function combineDuplicateArray
 
 function insertArrayForChart(chart, arrayValues, keyLabels, keyValues, bgColor, bdColor){

@@ -52,22 +52,4 @@ header div.global-menu li:hover{
 a {
     text-decoration: none;
 }
-
-div.menu-box0 {
-    width: 100%; 
-    height: 100%;
-    padding:1rem;
-    margin-top: 0.5rem; 
-    border:0.1rem solid lightgray;
-    background-color: white;
-    }
-
-div.menu-box0:hover {
-    background-color:rgb(241, 241, 241);
-}
-
-
-div.menu-box0 p{
-    color: black;
     
-    }
