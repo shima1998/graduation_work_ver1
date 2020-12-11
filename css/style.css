@@ -52,4 +52,11 @@ header div.global-menu li:hover{
 a {
     text-decoration: none;
 }
-    
+
+.block-container0{
+    overflow: hidden;
+}
+
+.block0{
+    float: left;
+}

@@ -1,5 +1,23 @@
-canvas {
+/* canvas.bar {
+    width: 50%;
+    height: 0.5rem;
+    margin-right: 3rem;/*右端を出すために*/
+/* }
+
+.doughnut {
+    float: left;
+    width: 10%;
+    height: 20rem;
+    margin-right: 3rem;/*右端を出すために*/
+/* } */ /**/ /**/
+
+.canvas-container0 {
     width: 100%;
     height: 40rem;
-    margin-right: 3rem;/*右端を出すために*/
+}
+
+.canvas-container1 {
+    position: relative;
+    width:  50rem;
+    height: 30rem;
 }

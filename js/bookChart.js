@@ -1,7 +1,9 @@
 // 配列に関して、基本はドット記法を使用するが、keyが数字、または変数だった場合はブラケットを使用すること。
-let ctx = document.getElementById("bookChart0").getContext('2d');
+let ctx0 = document.getElementById("bookChart0").getContext('2d');
+let ctx1 = document.getElementById("bookChart1").getContext('2d');
+let ctx2 = document.getElementById("bookChart2").getContext('2d');
 
-let bookChart0 = new Chart(ctx, {
+let bookChart0 = new Chart(ctx0, {
     type: 'bar',
     data: {
         labels: [],
@@ -16,6 +18,8 @@ let bookChart0 = new Chart(ctx, {
         }]
     },
     options: {
+        // responsive: true,
+        maintainAspectRatio: false,//固定アスペクト比の設定
         scales: {
             yAxes: [{
                 ticks: {
@@ -27,14 +31,15 @@ let bookChart0 = new Chart(ctx, {
 });
 
 
-let bookChart1 = new Chart(ctx, {//円グラフ
+let bookChart1 = new Chart(ctx1, {//円グラフ
     type: 'doughnut',
     data: {
         labels: ["a","b","c"],
         datasets: [{
             label: 'ページ数',
-            data: [10,10,10],
+            data: [10,10,10,20],
             backgroundColor: [
+                'rgb(255, 0, 0)'
             ],
             borderColor: [
             ],
@@ -42,14 +47,30 @@ let bookChart1 = new Chart(ctx, {//円グラフ
         }]
     },
     options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
+        // responsive: true,
+        maintainAspectRatio: false
+    }//使わないならない方がいい
+});
+
+let bookChart2 = new Chart(ctx2, {//円グラフ
+    type: 'doughnut',
+    data: {
+        labels: ["a","b","c"],
+        datasets: [{
+            label: 'ページ数',
+            data: [10,10,10,20],
+            backgroundColor: [
+                'rgb(255, 0, 0)'
+            ],
+            borderColor: [
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        // responsive: true,
+        maintainAspectRatio: false
+    }//使わないならない方がいい
 });
 
 
@@ -135,6 +156,8 @@ window.addEventListener("load",function(){
             document.getElementById("test0").innerHTML = progressData[0].pages;
 
             insertArrayForChart(bookChart0, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
+            insertArrayForChart(bookChart1, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
+            
 
 		};
     };//最初は素通り　帰ってくるタイミングはこちらで決められない
