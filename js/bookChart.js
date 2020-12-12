@@ -1,7 +1,7 @@
 // 配列に関して、基本はドット記法を使用するが、keyが数字、または変数だった場合はブラケットを使用すること。
 let ctx0 = document.getElementById("bookChart0").getContext('2d');
 let ctx1 = document.getElementById("bookChart1").getContext('2d');
-let ctx2 = document.getElementById("bookChart2").getContext('2d');
+// let ctx2 = document.getElementById("bookChart2").getContext('2d');
 
 let bookChart0 = new Chart(ctx0, {
     type: 'bar',
@@ -18,7 +18,7 @@ let bookChart0 = new Chart(ctx0, {
         }]
     },
     options: {
-        // responsive: true,
+        responsive: true,
         maintainAspectRatio: false,//固定アスペクト比の設定
         scales: {
             yAxes: [{
@@ -47,7 +47,7 @@ let bookChart1 = new Chart(ctx1, {//円グラフ
         }]
     },
     options: {
-        // responsive: true,
+        responsive: true,
         maintainAspectRatio: false
     }//使わないならない方がいい
 });

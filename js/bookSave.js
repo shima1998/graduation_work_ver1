@@ -28,7 +28,7 @@ window.addEventListener("load", function(){
 			}
 		};
 
-		// document.getElementById("showDB").innerHTML = XHR.open("get", "./cgi/show_books.rb");
+		document.getElementById("showDB").innerHTML = XHR.open("get", "./cgi/show_books.rb");
 
 	} ,false);
 }, false);
@@ -49,4 +49,4 @@ function showDB(id, path){
 
 	XHR.send(null);
 	// document.getElementById(id).innerHTML = XHR.responseText;
-}
+};

@@ -109,7 +109,7 @@ function createNewElementTest1(){//これで動きます。
   console.log(element1);
  
   // let parentNode = document.getElementById("bookMenu1").parentNode;
-  document.getElementById("button0").appendChild(element0);
+  document.getElementById("main").appendChild(element0);
 };
 
 
