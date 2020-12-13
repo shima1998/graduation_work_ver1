@@ -23,8 +23,8 @@ Content-type: text/html\n\n
 <head>
     <meta charset="utf-8">
     <title>BookList</title>
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
-    <link rel="stylesheet" type="text/css" href="./css/home-menu.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/home-menu.css">
 </head>
 <body>
 
@@ -41,6 +41,37 @@ Content-type: text/html\n\n
 <div id="bookInfo" class="default">
 EOS
 
-productResults.each_with_index do |productResult, index|
-    if index==bookIndex
+puts "#{bookIndex}"
+
+productResults.each do |productResult|
+    if productResult["ROW_NUM"].to_s=="#{bookIndex}" then
+        print "<h2>#{productResult["Name"].to_s}</h2>"
+        
+        case productResult["Status"]
+        when 0 then
+            print "<p>状態: 未着手</p>"
+        when 1 then
+            print "<p>状態: 読書中</p>"
+        when 2 then
+            print "<p>状態: 読了</p>"
+        when 3 then
+            print "<p>状態: 部分読了</p>"
+        else
+            print "<p>error</p>"
+        end
+
+        print <<-EOS
+            <p>#{productResult["ReviewName"].to_s}: #{productResult["ReviewPoint"].to_s}</p>
+            <h2>感想</h2>
+            <p>#{productResult["Inpressions"].to_s}</p>
+        EOS
+    end
 end
+
+print <<-EOS
+</div>
+<footer>
+</footer>
+</body>
+</html>
+EOS
