@@ -17,6 +17,7 @@ header{
     position: fixed;/*これやると領域が文字やオブジェクトの分しか展開されない。あと設定しないとheaderの分bodyの要素上にあがって重なるから要設定。  */
     background-color: rgb(68, 68, 68);
     width: 100%;
+    z-index: 999;
 }
 
 header div.global-menu {

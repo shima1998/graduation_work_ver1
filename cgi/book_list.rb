@@ -11,7 +11,8 @@ data=CGI.new()
 #パスはサーバーで入れてね
 #client = 
 
-productResults = client.query("select * from test_book;")
+client.query("set @rownum=0;")
+productResults = client.query("SELECT @rownum:=@rownum+1 as ROW_NUM, Name,Status,ReviewName,ReviewPoint,Inpressions,Date FROM test_book;")
 
 print <<-EOS
 Content-type: text/html\n\n
@@ -23,6 +24,7 @@ EOS
 print "[\n"
 productResults.each do |productResult|
     print "{\n"
+    print "\"row\": " + "\"" + productResult["ROW_NUM"].to_s + "\",\n"
     print "\"name\": " + "\"" + productResult["Name"].to_s + "\",\n"
     print "\"status\": " + "\"" + productResult["Status"].to_s + "\",\n"
     print "\"reviewName\": " + "\"" + productResult["ReviewName"].to_s + "\",\n"

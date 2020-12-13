@@ -15,14 +15,16 @@ window.addEventListener("load",function(){
         let bookLists = JSON.parse(XHR.responseText);//JSON.parseに渡すデータに\rや\nが入っているとエラーが起きる
 
         bookLists.forEach((bookList, index) => {
-          let listForm = createNewForm("./cgi/book_list.rb", "post", null, null, null, null, null, null, index);
-          let listDivs = createNewTag("div", "bookList", index, "menu-box0", null, "book_list", null, index);
-          let newH2 = createNewTag("h2", null, null, null, null, null, null, index);
-
-          let listStatus = createNewTag("p", null, null, null, null, null, null, index);
-          newP0.textContent = bookList.name;//本のタイトル
-          newDivs.appendChild(newP0);
-          let listReview = createNewTag("p", null, null, null, null, null, null, index);
+          let listForm = createNewForm("./cgi/book_list.rb", "post", null, null, null, null, null, null, null);
+          console.log(listForm);
+          console.log(bookList.row);
+          let listDivs = createNewTag1("div", "bookList", index, "menu-box0", null, "book_list", null, bookList.row, "submit");
+          let newH2 = createNewTag("h2", null, null, null, null, null, null, null);
+          
+          let listStatus = createNewTag("p", null, null, null, null, null, null, null);
+          newH2.textContent = bookList.name;//本のタイトル
+          listDivs.appendChild(newH2);
+          let listReview = createNewTag("p", null, null, null, null, null, null, null);
           let bookStatus;
 
           switch(bookList.status){
@@ -40,15 +42,19 @@ window.addEventListener("load",function(){
               break;
           };
 
-            newP1.textContent = "状態:" + bookStatus + "□" + bookList.reviewName + ":" + bookList.reviewPoint;
+            listStatus.textContent = "状態:" + bookStatus;
+            listReview.textContent = bookList.reviewName + ":" + bookList.reviewPoint;
 
-            newDivs.appendChild(newP0);
-            newDivs.appendChild(newP1);
+            listDivs.appendChild(listStatus);
+            listDivs.appendChild(listReview);
 
-            newForm.appendChild(newDivs);
+            listForm.appendChild(listDivs);
             
-            document.getElementById("bookLists").appendChild(newForm);
+            document.getElementById("bookLists").appendChild(listForm);
         });
+
+        
+
       };
       
     };//最初は素通り　帰ってくるタイミングはこちらで決められない
@@ -92,6 +98,43 @@ function createNewTag(newTagName, newId, indexId, newClass, indexClass, newName,
   return newTag;
 };
 
+function createNewTag1(newTagName, newId, indexId, newClass, indexClass, newName, indexName, newValue, newType){
+    let newTag = document.createElement(newTagName);
+  
+    if(newId != null){
+      if(indexId == null){//nullは文字列である必要がありそう
+        newTag.setAttribute("id", newId);
+      } else {
+        newTag.setAttribute("id", newId + indexId);
+      };
+    };
+    
+    if(newClass != null){
+      if(indexClass == null){//nullは文字列である必要がありそう
+        newTag.setAttribute("class", newClass);
+      } else {
+        newTag.setAttribute("class", newClass + indexClass);
+      };
+    };
+  
+    if(newName != null){
+      if(indexName == null){//nullは文字列である必要がありそう
+        newTag.setAttribute("name", newName);
+      } else {
+        newTag.setAttribute("name", newClass + indexName);
+      };
+    };
+  
+    newTag.setAttribute("value", newValue);
+    
+    newTag.setAttribute("type", newType);
+  
+    // console.log(newId + indexId);
+  
+    return newTag;
+  };
+
+ 
 function createNewForm(actionPath, method, newId, indexId, newClass, indexClass, newName, indexName, newValue){
     let newTag = document.createElement("form");
   
@@ -128,6 +171,43 @@ function createNewForm(actionPath, method, newId, indexId, newClass, indexClass,
     // console.log(newId + indexId);
   
     return newTag;
+};
+
+function createNewInput(type, newId, indexId, newClass, indexClass, newName, indexName, newAlt, indexAlt, newValue){
+let newTag = document.createElement("input");
+
+newTag.setAttribute("type", type);
+
+if(newId != null){
+  if(indexId == null){//nullは文字列である必要がありそう
+    newTag.setAttribute("id", newId);
+  } else {
+    newTag.setAttribute("id", newId + indexId);
+  };
+};
+
+
+if(newClass != null){
+  if(indexClass == null){//nullは文字列である必要がありそう
+    newTag.setAttribute("class", newClass);
+  } else {
+    newTag.setAttribute("class", newClass + indexClass);
+  };
+};
+
+if(newName != null){
+    if(indexName == null){//nullは文字列である必要がありそう
+      newTag.setAttribute("name", newName);
+    } else {
+      newTag.setAttribute("name", newClass + indexName);
+    };
+  };
+
+newTag.setAttribute("value", newValue);
+
+// console.log(newId + indexId);
+
+return newTag;
 };
 
 
