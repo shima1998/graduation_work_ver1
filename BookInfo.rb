@@ -70,7 +70,11 @@ end
 
 print <<-EOS
 
-<form action="" method="POST">
+<form action="./ChangeInfo.rb" method="post">
+<button type="submit" class="submit-book" name="book_value" alt="編集する" value="#{bookIndex}">
+編集する
+</button>
+</form>
 
 </div>
 <footer>

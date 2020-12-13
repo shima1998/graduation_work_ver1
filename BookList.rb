@@ -43,7 +43,7 @@ EOS
 productResults.each do |productResult|
     print <<-EOS
         <div id="bookList#{productResult["ROW_NUM"].to_s}" class="menu-box0">
-        <form action="./cgi/book_info.rb" method="post">
+        <form action="./BookInfo.rb" method="post">
         <input type="submit" class="submit-book" name="book_list" alt="#{productResult["Name"].to_s}" value="#{productResult["ROW_NUM"].to_s}">
         <div class="relative-txt">
             <h2>#{productResult["Name"].to_s}</h2>
