@@ -12,8 +12,9 @@ bookIndex = data['book_list']
 #パスはサーバーで入れてね
 #client = 
 
-client.query("set @rownum=0;")
-productResults = client.query("SELECT @rownum:=@rownum+1 as ROW_NUM, Name,Status,ReviewName,ReviewPoint,Inpressions,Date FROM test_book;")
+client.query("set @index=0;")
+client.query("update test_book set ID=(@index := @index + 1);")
+productResults = client.query("SELECT * FROM test_book;")
 
 print <<-EOS
 Content-type: text/html\n\n
@@ -44,7 +45,7 @@ EOS
 puts "#{bookIndex}"
 
 productResults.each do |productResult|
-    if productResult["ROW_NUM"].to_s=="#{bookIndex}" then
+    if productResult["ID"].to_s=="#{bookIndex}" then
         print "<h2>#{productResult["Name"].to_s}</h2>"
         
         case productResult["Status"]
@@ -63,7 +64,7 @@ productResults.each do |productResult|
         print <<-EOS
             <p>#{productResult["ReviewName"].to_s}: #{productResult["ReviewPoint"].to_s}</p>
             <h2>感想</h2>
-            <p>#{productResult["Inpressions"].to_s}</p>
+            <p>#{productResult["Impressions"].to_s}</p>
         EOS
     end
 end

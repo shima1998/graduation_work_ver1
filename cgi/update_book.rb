@@ -3,7 +3,6 @@
 
 require 'mysql2'
 require 'cgi'
-require 'date'
 
 # 取得した値を使い、本の詳細情報を変更するＣＧＩ
 
@@ -16,15 +15,13 @@ reviewName = data['book_review_name']
 reviewPoint = data['book_review']
 impressions = data['book_impression']
 
-today = Date.today
-
 #パスはサーバーで入れてね
 #client = 
 
 
-client.query("set @index=0;")
+client.query("set @index:=0;")
 client.query("update test_book set ID=(@index := @index + 1);")
-client.query("update test_book set Name=\"#{name}\", Status=#{status}, ReviewName=\"#{reviewName}\", ReviewPoint=\"#{reviewPoint}\", Impressions=\"#{impressions}\" where ID=#{row};")
+client.query("update test_book set Name=\"#{name}\", Status=#{status}, ReviewName=\"#{reviewName}\", ReviewPoint=#{reviewPoint}, Impressions=\"#{impressions}\" where ID=#{bookIndex};")
 productResults = client.query("SELECT * FROM test_book;")
 
 
@@ -47,6 +44,7 @@ EOS
 
 productResults.each do |productResult|
    if productResult["ID"].to_s=="#{bookIndex}" then
+        print "<h2>完了</h2>"
        print "<h2>#{productResult["Name"].to_s}</h2>"
        
        case productResult["Status"]
@@ -65,15 +63,14 @@ productResults.each do |productResult|
        print <<-EOS
            <p>#{productResult["ReviewName"].to_s}: #{productResult["ReviewPoint"].to_s}</p>
            <h2>感想</h2>
-           <p>#{productResult["Inpressions"].to_s}</p>
+           <p>#{productResult["Impressions"].to_s}</p>
        EOS
    end
 end
 
 print <<-EOS
 <br>
-<p>リロードはしないでください!</p>
-<a href="../HomeMenu.html"><button>メニューに戻る</button></a>
+<a href="../BookList.rb"><button>メニューに戻る</button></a>
 </p>
 </body>
 </html>

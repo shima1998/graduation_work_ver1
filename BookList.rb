@@ -11,8 +11,9 @@ data=CGI.new()
 #パスはサーバーで入れてね
 #client = 
 
-client.query("set @rownum=0;")
-productResults = client.query("SELECT @rownum:=@rownum+1 as ROW_NUM, Name,Status,ReviewName,ReviewPoint,Inpressions,Date FROM test_book;")
+client.query("set @index=0;")
+client.query("update test_book set ID=(@index := @index + 1);")
+productResults = client.query("SELECT * FROM test_book;")
 
 print <<-EOS
 Content-type: text/html\n\n
@@ -42,9 +43,9 @@ EOS
 
 productResults.each do |productResult|
     print <<-EOS
-        <div id="bookList#{productResult["ROW_NUM"].to_s}" class="menu-box0">
+        <div id="bookList#{productResult["ID"].to_s}" class="menu-box0">
         <form action="./BookInfo.rb" method="post">
-        <input type="submit" class="submit-book" name="book_list" alt="#{productResult["Name"].to_s}" value="#{productResult["ROW_NUM"].to_s}">
+        <input type="submit" class="submit-book" name="book_list" alt="#{productResult["Name"].to_s}" value="#{productResult["ID"].to_s}">
         <div class="relative-txt">
             <h2>#{productResult["Name"].to_s}</h2>
     EOS

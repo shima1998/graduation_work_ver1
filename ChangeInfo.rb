@@ -12,9 +12,9 @@ bookIndex = data['book_value']
 #パスはサーバーで入れてね
 #client = 
 
-client.query("set @rownum=0;")
-productResults = client.query("SELECT @rownum:=@rownum+1 as ROW_NUM, Name,Status,ReviewName,ReviewPoint,Inpressions,Date FROM test_book;")
-
+client.query("set @index=0;")
+client.query("update test_book set ID=(@index := @index + 1);")
+productResults = client.query("SELECT * FROM test_book;")
 
 
 
@@ -42,13 +42,13 @@ Content-type: text/html\n\n
 </header>
 
 <div id="bookInfo" class="default">
-<form action="./cgi/update_books.rb" id="bookNewData" method="post">
+<form action="./cgi/update_book.rb" id="bookNewData" method="post">
 EOS
 
 productResults.each do |productResult|
-    if productResult["ROW_NUM"].to_s=="#{bookIndex}" then
+    if productResult["ID"].to_s=="#{bookIndex}" then
         print <<-EOS
-        <div name="book_index" value="#{bookIndex}"></div>
+        <input type="number" name="book_index" value="#{bookIndex}" style="visibility: hidden;" readonly>
         <p>タイトル:<input type="text" name="book_name" value="#{productResult["Name"].to_s}" size="40"></p>
             <p>
                 状態:<select name="book_status" value=""#{productResult["Status"].to_s}">
@@ -68,7 +68,7 @@ productResults.each do |productResult|
 
             <p>
                 感想:<br>
-                <textarea name="book_impression" rows="4" cols="40">#{productResult["Inpressions"].to_s}</textarea>
+                <textarea name="book_impression" rows="4" cols="40">#{productResult["Impressions"].to_s}</textarea>
             </p>
         EOS
     end
