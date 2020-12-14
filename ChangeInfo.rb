@@ -42,12 +42,13 @@ Content-type: text/html\n\n
 </header>
 
 <div id="bookInfo" class="default">
-<form action="cgi/update_books.rb" id="bookNewData" method="post">
+<form action="./cgi/update_books.rb" id="bookNewData" method="post">
 EOS
 
 productResults.each do |productResult|
     if productResult["ROW_NUM"].to_s=="#{bookIndex}" then
         print <<-EOS
+        <div name="book_index" value="#{bookIndex}"></div>
         <p>タイトル:<input type="text" name="book_name" value="#{productResult["Name"].to_s}" size="40"></p>
             <p>
                 状態:<select name="book_status" value=""#{productResult["Status"].to_s}">
@@ -74,10 +75,20 @@ productResults.each do |productResult|
 end
 
 print <<-EOS
+<input type="submit" value="決定">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="delete-button">
+<button  formaction="./cgi/delete_book.rb" type="submit">削除</button>
+</div>
 </form>
-
-<button type="button" id="sendData">決定</button>
 
 </body>
 </html>
 EOS
+
+# なぜかtype submitのボタンを作るとInternalServerError吐いた

@@ -11,8 +11,9 @@ data=CGI.new()
 #パスはサーバーで入れてね
 #client = 
 
-client.query("set @rownum=0;")
-productResults = client.query("SELECT @rownum:=@rownum+1 as ROW_NUM, Name,Status,ReviewName,ReviewPoint,Inpressions,Date FROM test_book;")
+client.query("set @index=0;")
+client.query("update test_book set `Index`=(@index := @index + 1);")
+productResults = client.query("SELECT * FROM test_book;")
 
 print <<-EOS
 Content-type: text/html\n\n
@@ -24,12 +25,11 @@ EOS
 print "[\n"
 productResults.each do |productResult|
     print "{\n"
-    print "\"row\": " + "\"" + productResult["ROW_NUM"].to_s + "\",\n"
+    print "\"row\": " + "\"" + productResult["Index"].to_s + "\",\n"
     print "\"name\": " + "\"" + productResult["Name"].to_s + "\",\n"
     print "\"status\": " + "\"" + productResult["Status"].to_s + "\",\n"
     print "\"reviewName\": " + "\"" + productResult["ReviewName"].to_s + "\",\n"
     print "\"reviewPoint\": " + "\"" + productResult["ReviewPoint"].to_s + "\",\n"
-    # print "\"impressions\": " + "\"" + productResult["Inpressions"].to_s + "\",\n"
     print "\"date\": " + "\"" + productResult["Date"].to_s + "\"\n"
     print "},\n"
     #  "\"name\": " はシングルクオートでくくって '"name": 'と書いてもよい
@@ -37,3 +37,4 @@ productResults.each do |productResult|
 end
 # できればヒアドキュメント使いたかったけどヒアドキュメントの中だと演算子使いにくいっぽいからナシで
 print "{}]\n"
+
