@@ -52,26 +52,26 @@ let bookChart1 = new Chart(ctx1, {//円グラフ
     }//使わないならない方がいい
 });
 
-let bookChart2 = new Chart(ctx2, {//円グラフ
-    type: 'doughnut',
-    data: {
-        labels: ["a","b","c"],
-        datasets: [{
-            label: 'ページ数',
-            data: [10,10,10,20],
-            backgroundColor: [
-                'rgb(255, 0, 0)'
-            ],
-            borderColor: [
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        // responsive: true,
-        maintainAspectRatio: false
-    }//使わないならない方がいい
-});
+// let bookChart2 = new Chart(ctx2, {//円グラフ
+//     type: 'doughnut',
+//     data: {
+//         labels: ["a","b","c"],
+//         datasets: [{
+//             label: 'ページ数',
+//             data: [10,10,10,20],
+//             backgroundColor: [
+//                 'rgb(255, 0, 0)'
+//             ],
+//             borderColor: [
+//             ],
+//             borderWidth: 1
+//         }]
+//     },
+//     options: {
+//         // responsive: true,
+//         maintainAspectRatio: false
+//     }//使わないならない方がいい
+// });
 
 
 // function combineDuplicateArray
@@ -151,12 +151,12 @@ window.addEventListener("load",function(){
             let strXml0 = XHR.responseText;
             let progressData = JSON.parse(strXml0);//date,pages String型で格納されている
 
-            document.getElementById("test1").innerHTML = progressData[0].date;
+            // document.getElementById("test1").innerHTML = progressData[0].date;
 
-            document.getElementById("test0").innerHTML = progressData[0].pages;
+            // document.getElementById("test0").innerHTML = progressData[0].pages;
 
             insertArrayForChart(bookChart0, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
-            insertArrayForChart(bookChart1, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
+            // insertArrayForChart(bookChart1, progressData, 'date', 'pages', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 1)');
             
 
 		};
